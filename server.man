@@ -1,0 +1,42 @@
+.TH SERVER 1 "29 March 20"
+.SH NAME
+server - Work processing server 
+.SH SYNOPSIS
+server [port]  
+.SH DESCRIPTION
+server - can be executed after using make by ./server [port] 
+.P 
+[port] - port no that server and client are using 
+.P
+The server creates a socket set where clients are added upon incoming
+transactions. The server runs on the IP of the current machine which can 
+be found by using "curl ifconfig.me" in terminal.
+.P
+The server can handle 10 pending/current connections at one 
+time. Once connected, the server will execute pieces of work send by 
+clients. STDOUT will display when a piece of work is accepted and when 
+it is completed. Once the server receives no work or incoming connections 
+for 60 seconds then it will exit and display summary transaction information.
+.SH FILES
+.TP
+server.cpp 
+Main process file 
+.TP
+tands.cpp
+Executes transactions and sleeps
+.TP
+timetime.cpp 
+Gets the current seconds since epoch with 2 decimal precision
+.TP
+header files
+client.h, tands.h, timetime.h
+.SH "SEE ALSO"
+client(1)
+.SH BUGS
+If not working properly a new port may need to be selected. 
+.P 
+When a client ends its connection, the socket in the set is set so that 
+it cannot be reused so that if a new connection comes from the same client
+it will be treated as a new connection with its unique pid. This creates 
+sockets that are not reusable, but does not affect the max number of clients 
+allowed (10).

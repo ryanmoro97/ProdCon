@@ -1,0 +1,51 @@
+.TH CLIENT 1 "29 March 20"
+.SH NAME
+client - Client work handler
+.SH SYNOPSIS
+client [port] [server] [inputfile] 
+.SH DESCRIPTION
+client - can be executed after using make by ./client [port] [server] [inputfile]
+.P 
+[port] - port no that server and client are using 
+.P 
+[server] - IP address of the servers machine. This can be found by using 
+command "curl ifconfig.me" on the servers terminal. 
+.P
+[inputfile] - optional input file from commands. If not
+provided then commands can be entered through terminal.
+.P
+The client establishes socket connection with the server on the specified 
+port and IP. The client will read instructions from STDIN or 
+redirected from a file. 
+.P 
+These instructions are either T<n> or S<n>.
+.P 
+T<n> (n > 0) is a transaction tha will be sent to the server for 
+execution then will also be notified once the work is done. 
+.P 
+S<n> (0 <= n <= 100) will instruct the client to sleep for a specified 
+period of time. 
+.P 
+Client information will be displayed in a log file 
+named machine_name.pid, as well as all information on instructions 
+handled by the client.
+.SH FILES
+.TP
+client.cpp 
+Main process file 
+.TP
+tands.cpp
+Executes transactions and sleeps
+.TP
+timetime.cpp 
+Gets the current seconds since epoch with 2 decimal precision
+.TP
+loglog.cpp 
+Creates log and adds entries on client info
+.TP
+header files
+client.h, tands.h, timetime.h, loglog.h
+.SH "SEE ALSO"
+server(1)
+.SH BUGS
+If not working properly a new port may need to be selected. 
